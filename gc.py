@@ -126,15 +126,27 @@ elif(option == 'Visualised Calculator'):
                 st.info('Number Of Columns Dosen\'t Matter')
                 st.image('sampledata.PNG')
             try:
-                uploaded_file = st.file_uploader("Upload Dataset", type={'csv'})
+                uploaded_file = st.file_uploader("Upload Dataset", type=['csv', 'xlsx'])
             except:
                 pass
 
             if uploaded_file is not None:
 
-                df = pd.read_csv(uploaded_file)
+                try:
+                    df = pd.read_csv(uploaded_file)
+                except:
+                    df = pd.read_excel(uploaded_file)
 #                 st.dataframe(df)
 
+                columns = st.multiselect("Columns:",df.columns)
+
+                df1 = pd.DataFrame()
+
+                for i in columns:
+                    df1[i] = df[i]
+                
+                st.dataframe(df1)
+                
                 ccr = st.text_input('Input All Credit Accordingly Seperated By A Comma')
 
                 if(st.button('PROCEED')):
@@ -147,8 +159,8 @@ elif(option == 'Visualised Calculator'):
                         dd_ar = []
                         ttp = []
 
-                        for yy in range(len(df)):
-                            ndf = df.iloc[yy]
+                        for yy in range(len(df1)):
+                            ndf = df1.iloc[yy]
                             cc = 0
                             my_ntar = ndf.values
                             dd = 0
@@ -171,9 +183,9 @@ elif(option == 'Visualised Calculator'):
                     def returnTotalPassed(credit_units1):
                         t_p_p = []
 
-                        for xx in range(len(df)):
+                        for xx in range(len(df1)):
                             jtt = _sum(credit_units1)
-                            ndfa = df.iloc[xx]
+                            ndfa = df1.iloc[xx]
                             anpr = ndfa.values
                             count = 0
                             for i in anpr:
@@ -191,9 +203,9 @@ elif(option == 'Visualised Calculator'):
 
                     def returnTotalFailed(credit_units1):
                         t_u_f = []
-                        for yy in range(len(df)):
+                        for yy in range(len(df1)):
                             sss = 0
-                            ndfa1 = df.iloc[yy]
+                            ndfa1 = df1.iloc[yy]
                             anpr1 = ndfa1.values
                             count = 0
                             for j in anpr1:
@@ -201,8 +213,7 @@ elif(option == 'Visualised Calculator'):
                                     if(int(j) <= 39):
                                         sss += credit_units1[count]
                                 except:
-                                    pass
- #                                   sss += credit_units1[count]
+                                    sss += credit_units1[count]
                                 count += 1
 
                             t_u_f.append(sss)
@@ -213,8 +224,8 @@ elif(option == 'Visualised Calculator'):
                     def returnTotalPoints(credit_units1):
                         t_p_i_t = []
 
-                        for yy in range(len(df)):
-                            ndf = df.iloc[yy]
+                        for yy in range(len(df1)):
+                            ndf = df1.iloc[yy]
                             cc = 0
                             my_ntar = ndf.values
                             dd = 0
@@ -264,7 +275,7 @@ elif(option == 'Visualised Calculator'):
                     df['GPA'] = gp
 
 
-                    st.dataframe(df)
+                    st.dataframe(df.astype(str))
 
                     ndf = df['GPA']
 
@@ -305,6 +316,7 @@ elif(option == 'Visualised Calculator'):
                     aa = convert_df(df)
 
                     file_name = 'mactechloop (' + uploaded_file.name[:-4].strip()+').csv'
+                
 
                     if(st.download_button(
                     label="Download CSV File",
@@ -313,6 +325,7 @@ elif(option == 'Visualised Calculator'):
                     mime='text/csv',
                         )):
                         st.success('Downloaded Successfully')
-            
+                
+    
 
     
