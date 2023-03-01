@@ -30,7 +30,7 @@ st.title('GPA CALCULATOR')
 st.info('Built With ❤️ By MacTechLoop (mactechloop@gmail.com)')
 
         
-activities=['Casual Calculator', 'Visualised Calculator']
+activities=['Visualised Calculator', 'Casual Calculator']
 option=st.selectbox('Selection option:',activities)
 
 if(option == 'Casual Calculator'):
