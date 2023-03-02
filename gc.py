@@ -9,7 +9,7 @@ import altair as alt
 
 downloads_path = str(Path.home() / "Downloads")
 unlocked = False
-@st.cache
+@st.cache_data
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv(index=False).encode('utf-8')
@@ -145,7 +145,9 @@ elif(option == 'Visualised Calculator'):
                 for i in columns:
                     df1[i] = df[i]
                 
-                st.dataframe(df1)
+                # st.dataframe(edited_df)
+
+                edited_df = st.experimental_data_editor(df1)
                 
                 ccr = st.text_input('Input All Credit Accordingly Seperated By A Comma')
 
@@ -159,8 +161,8 @@ elif(option == 'Visualised Calculator'):
                         dd_ar = []
                         ttp = []
 
-                        for yy in range(len(df1)):
-                            ndf = df1.iloc[yy]
+                        for yy in range(len(edited_df)):
+                            ndf = edited_df.iloc[yy]
                             cc = 0
                             my_ntar = ndf.values
                             dd = 0
@@ -183,9 +185,9 @@ elif(option == 'Visualised Calculator'):
                     def returnTotalPassed(credit_units1):
                         t_p_p = []
 
-                        for xx in range(len(df1)):
+                        for xx in range(len(edited_df)):
                             jtt = _sum(credit_units1)
-                            ndfa = df1.iloc[xx]
+                            ndfa = edited_df.iloc[xx]
                             anpr = ndfa.values
                             count = 0
                             for i in anpr:
@@ -203,9 +205,9 @@ elif(option == 'Visualised Calculator'):
 
                     def returnTotalFailed(credit_units1):
                         t_u_f = []
-                        for yy in range(len(df1)):
+                        for yy in range(len(edited_df)):
                             sss = 0
-                            ndfa1 = df1.iloc[yy]
+                            ndfa1 = edited_df.iloc[yy]
                             anpr1 = ndfa1.values
                             count = 0
                             for j in anpr1:
@@ -224,8 +226,8 @@ elif(option == 'Visualised Calculator'):
                     def returnTotalPoints(credit_units1):
                         t_p_i_t = []
 
-                        for yy in range(len(df1)):
-                            ndf = df1.iloc[yy]
+                        for yy in range(len(edited_df)):
+                            ndf = edited_df.iloc[yy]
                             cc = 0
                             my_ntar = ndf.values
                             dd = 0
