@@ -276,6 +276,9 @@ elif(option == 'Visualised Calculator'):
 
                     df['GPA'] = gp
 
+                    for i in edited_df.columns:
+                        df[i] = edited_df[i]
+
 
                     st.dataframe(df.astype(str))
 
