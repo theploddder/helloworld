@@ -215,7 +215,8 @@ elif(option == 'Visualised Calculator'):
                                     if(int(j) <= 39):
                                         sss += credit_units1[count]
                                 except:
-                                    sss += credit_units1[count]
+                                    pass
+#                                     sss += credit_units1[count]
                                 count += 1
 
                             t_u_f.append(sss)
