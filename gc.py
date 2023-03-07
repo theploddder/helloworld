@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import matplotlib.pyplot as plt
 import altair as alt
+import openpyxl
 
 downloads_path = str(Path.home() / "Downloads")
 unlocked = False
@@ -135,8 +136,13 @@ elif(option == 'Visualised Calculator'):
                 try:
                     df = pd.read_csv(uploaded_file)
                 except:
-                    df = pd.read_excel(uploaded_file)
-#                 st.dataframe(df)
+                    wb = openpyxl.load_workbook(uploaded_file) 
+                    sheet_names = wb.sheetnames
+
+                    select_sheet = st.selectbox('Select Sheet:',sheet_names)
+                    df = pd.read_excel(uploaded_file, sheet_name=select_sheet)
+
+
 
                 columns = st.multiselect("Columns:",df.columns)
 
