@@ -558,7 +558,6 @@ def single_sheet_calculator():
 
 def multiple_sheets_calculator():
     st.title('MULTIPLE SHEET CALCULATOR')
-    st.warning('Please Use The Nav Bar By The Top Right to Rerun Incase Of Any Glitches')
 
     if(st.button('View Sample Dataset Image')):
         st.info('Number Of Columns Dosen\'t Matter')
@@ -757,6 +756,7 @@ def summary():
 def main():
 
     st.info('Built With ❤️ By MacTechLoop (mactechloop@gmail.com)')
+    st.warning('Please Use The Nav Bar By The Top Right to Rerun Incase Of Any Glitches')
     
     activities=['Casual Calulator','Single Sheet Calculator','Multiple Sheet Calculator','Data Summary']
     option=st.sidebar.selectbox('Selection option:',activities)
