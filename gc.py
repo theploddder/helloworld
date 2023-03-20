@@ -635,7 +635,7 @@ def multiple_sheets_calculator():
             for i in edited_df.columns:
                 df[i] = edited_df[i]
 
-            st.dataframe(df)
+#             st.dataframe(df)
 
             dic1 = {sht_nms : df}
             dataframe_collection.update(dic1)
