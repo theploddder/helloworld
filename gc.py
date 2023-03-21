@@ -15,10 +15,6 @@ unlocked = False
 def persistdata():
     return {}
 
-@st.cache(allow_output_mutation=True)
-def persistSheets():
-    return []
-
 @st.cache_data
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
@@ -569,7 +565,6 @@ def multiple_sheets_calculator():
         pass
 
     dataframe_collection = persistdata()
-    solved_sheets = persistSheets()
     
 
     if uploaded_file is not None:
@@ -604,6 +599,7 @@ def multiple_sheets_calculator():
         
         ccr = st.text_input('Input All Credit Accordingly Seperated By A Comma', key=next(widget_id))
 
+        
         if(st.button('PROCEED', key=next(widget_id))):
 
             cred_uni = ccr.split(',')
@@ -635,14 +631,15 @@ def multiple_sheets_calculator():
             for i in edited_df.columns:
                 df[i] = edited_df[i]
 
-#             st.dataframe(df)
+            # st.dataframe(df)
 
             dic1 = {sht_nms : df}
             dataframe_collection.update(dic1)
-            solved_sheets.append(sht_nms)
             
+        
+        st.write('Solved Sheets --> ' + str(dataframe_collection.keys()))
             
-        st.write('Solved Sheets --> ' + str(solved_sheets))
+        
         if(st.button('Download With Current Sheets', key=next(widget_id))):
             for key in dataframe_collection.keys():
                 dataframe_collection[key].to_excel(all_excel_data, index=False, sheet_name=key)
@@ -656,6 +653,9 @@ def multiple_sheets_calculator():
                                     data=template_byte,
                                     file_name="template.xlsx",
                                     mime='application/octet-stream')
+        if(st.button('Clear Cache', key=next(widget_id))):
+            dataframe_collection.clear()
+
         
 def summary():
     st.title('Data Summary')
